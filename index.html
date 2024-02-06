@@ -404,46 +404,6 @@ nav ul li a.active {
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-function toggleMenu() {
-            var menu = document.getElementById("nav-menu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
-        }
-    
-    let currentIndex = 0;
-    const slides = document.querySelectorAll('.carousel-slide');
-    const track = document.querySelector('.carousel-track');
-    const indicatorsContainer = document.querySelector('.carousel-indicators');
-
-    // Create indicators
-    slides.forEach((slide, i) => {
-        const indicator = document.createElement('button');
-        indicator.classList.add('carousel-indicator');
-        indicator.addEventListener('click', () => {
-            moveToSlide(i);
-        });
-        indicatorsContainer.appendChild(indicator);
-    });
-
-    function updateIndicators(newIndex) {
-        document.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
-            indicator.classList.toggle('active', i === newIndex);
-        });
-    }
-
-    function moveToSlide(index) {
-        const slideWidth = slides[index].getBoundingClientRect().width;
-        const newTranslateX = slideWidth * index * -1;
-        track.style.transform = `translateX(${newTranslateX}px)`;
-        currentIndex = index;
-        updateIndicators(currentIndex);
-    }
-
-
-
 
 
 
