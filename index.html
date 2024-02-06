@@ -21,10 +21,10 @@ body {
 
     /* Responsive navigation styles */
 @media (max-width: 768px) {
-    .carousel-indicator {
+    .carousel-container {
 
-        width: 0.5px !important;
-        height: 0.5px !important;
+        display: none !important;
+        
     
     }
     
@@ -399,96 +399,47 @@ nav ul li a.active {
 </div>
 
   
-<script>   
-var carousel = (function () {
-    var activeID = 0,
-        itemW = 940, // You may need to adjust this width to match your carousel items
-        carousel_count = $('.carousel-slide').length,
-        $carouselItems = $('.carousel-track'),
-        $carouselItem = $('.carousel-slide'),
-        $arrowPrev = $('.item_prev'), // Ensure you have these arrows in your HTML or adjust accordingly
-        $arrowNext = $('.item_next'), // Ensure you have these arrows in your HTML or adjust accordingly
-        $itemArrow = $('.item_arrow'), // Check this as well, as your provided HTML does not include it
-        $navDot,
-        $navDots = $('.carousel-indicators'),
-        swipeDir,
-        slideSpeed = .45,
-        slideMeth = Power2.EaseInOut; // This assumes you're using GSAP for animations
-
-    function init() {
-        $carouselItems.css({'width': (itemW * carousel_count) + 'px'});
-        $navDots.css({'width': (25 * carousel_count) + 'px'});
-        $itemArrow.css({'opacity': .8});
-        
-        setupDraggable();
-        setupDots();
-        navigateSlide();
-    }
-    init();
-    
-    function setupDraggable() { 
-        // Assuming Draggable is from GSAP's Draggable plugin
-        Draggable.create($carouselItems, {
-            type:'x',
-            edgeResistance: 0.90,
-            dragResistance: 0.0,
-            bounds:'.carousel-container',
-            onDrag:updateDirections,
-            onThrowUpdate:updateDirections,
-            throwProps:true,
-            onDragStart:function(evt) {},
-            onDragEnd: function() {
-                if(swipeDir == 'left') {activeID++}
-                else if(swipeDir == 'right') {activeID--};
-                navigateSlide();
+<script>
+    function toggleMenu() {
+            var menu = document.getElementById("nav-menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
             }
-        });    
-    };
-                
-    function setupDots() {    
-        for(var i = 0; i < carousel_count; i++) {
-            $navDots.append('<div class="nav_dot" id="dot_' + i + '"></div>');
-        }    
-        $navDot = $('.nav_dot');
-    }  
+        }
     
-    function navigateSlide() {
-        if(activeID >= carousel_count-1) activeID = carousel_count-1;
-        if(activeID <= 0) activeID = 0;      
-        var xTarget = ((activeID * itemW) * -1);
-        TweenMax.to($carouselItems, slideSpeed, {x: xTarget, ease: slideMeth, onComplete: slideDone});
-    }
-    
-    function slideDone() {
-        $navDot.css({backgroundColor: '#fff'});
-        TweenMax.to($navDot, .35, {scale: 1, color: 0xFFFFFF});
-        TweenMax.to($('#dot_' + activeID), .35, {scale: 1.5, backgroundColor: 'transparent', color: 0xCC0000});
-        
-        if(activeID == 0) {$arrowPrev.fadeOut()} 
-        else {$arrowPrev.fadeIn()}
-        
-        if(activeID + 1 == carousel_count) {$arrowNext.fadeOut()}
-        else {$arrowNext.fadeIn()}
-    }
-    
-    function updateDirections() {
-        swipeDir = this.getDirection("start");
-    }
-    
-    $itemArrow.on('click', function() {
-        if($(this).hasClass('item_next')) {activeID++}
-        else {activeID--};
-        navigateSlide();
-    });
-    
-    $navDot.click(function() {      
-        var dotID = $(this).attr('id').split('_')[1];
-        activeID = dotID;
-        navigateSlide();     
-    });
-})();
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const track = document.querySelector('.carousel-track');
+    const indicatorsContainer = document.querySelector('.carousel-indicators');
 
+    // Create indicators
+    slides.forEach((slide, i) => {
+        const indicator = document.createElement('button');
+        indicator.classList.add('carousel-indicator');
+        indicator.addEventListener('click', () => {
+            moveToSlide(i);
+        });
+        indicatorsContainer.appendChild(indicator);
+    });
 
+    function updateIndicators(newIndex) {
+        document.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === newIndex);
+        });
+    }
+
+    function moveToSlide(index) {
+        const slideWidth = slides[index].getBoundingClientRect().width;
+        const newTranslateX = slideWidth * index * -1;
+        track.style.transform = `translateX(${newTranslateX}px)`;
+        currentIndex = index;
+        updateIndicators(currentIndex);
+    }
+
+    // Set initial active indicator
+    updateIndicators(0);
 </script>
 
 <div class="footer">
