@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keme Rex</title>
+<style>
+    body, h1, ul, li, a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: white; /* Assuming white background */
+    color: black; /* Default text color */
+}
+
+
+    /* Responsive navigation styles */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+    
+     }
+     .swish-logo {
+        width: 100%; /* Make logo responsive */
+        max-width: 250px; /* Maximum size of the logo */
+        height: auto; /* Maintain aspect ratio */
+        margin-left: auto; /* Center align logo */
+        margin-right: 3%; /* Center align logo */ !important;
+        display: block; /* Correct block display */
+       
+    }
+    nav ul {
+        padding-top: 20px; 
+    }
+    .container {
+    margin: 0px !important;
+   
+}
+    
+.container2 {
+    padding: 30px !important;
+   
+}
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5px 5%;
+    background-color: white; /* Light gray background */
+
+}
+
+header h1 {
+    color: Grey; /* Sample color for the title */
+    font-size: 2.5rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    padding-left: 20px;
+}
+
+nav ul li a {
+    color: grey; /* Default link color */
+    font-size: 1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: grey; /* Sample hover and active link color */
+}
+.portfolio h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-size: 2em;
+    color: black; /* Adjust the color if needed */
+}  
+
+.swishintro h2 {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 80px;
+    font-size: 2rem;
+    color: black; /* Adjust the color if needed */
+}
+.concept {
+    margin-top: 60px; /* Adjust the value as needed */
+}
+   
+    .container {
+        padding: 40px;
+        margin: 50px;
+        background-color: black;
+        color:white;
+        border-radius: ;
+    }
+    .intro, .concept {
+        overflow: auto;
+    }
+    .intro h1, .concept h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+    .intro p, .concept p {
+        font-size: 16px;
+        line-height: 3.0;
+    }
+    .swish-logo {
+        float: right;
+        width: 350px;
+        margin-left: 30px;
+        margin-bottom: 30px;
+        margin-right: 18%;
+       
+    }
+    .phone-mockup {
+        float: left;
+        width: 300px;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        margin-right: 30px;
+        margin-bottom: 30px;
+    }
+    .phone-mockup img {
+        width: 100%;
+        border-radius: 20px;
+    }
+    .oval-button {
+    background-color: #ff7700; /* Green background */
+    border: none;
+    color: black; /* White text */
+    padding: 5px 20px; /* Top/bottom padding and left/right padding */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 30px; /* This creates the oval shape */
+    
+    cursor: pointer;
+}
+
+.oval-button:hover {
+    background-color: grey; /* Darker shade of green */
+}
+
+    .container2 {
+        padding: 50px;
+        background-color: white;
+        color:black;
+    }
+    .container2 h2 { text-align: center;
+    font-size: 50px;
+    }
+   
+   h3{ margin-top: 100px; }
+    .container3 {
+        padding: 50px;
+    margin-top: 30px;
+   background-color: black;
+   color:white;
+    }
+   
+   .phone-mockup {
+        float: left;
+        width: 300px;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        margin-right: 30px;
+        margin-bottom: 30px;
+    }
+    .carousel-container {
+        overflow: hidden;
+        position: relative;
+        margin: auto;
+        width: 100%; /* Set to the percentage of the width you want */
+background-color: black;
+    
+    }
+    .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        will-change: transform;
+    }
+    .carousel-slide {
+        max-width: 70%; /* Adjust the size to show portions of the next/prev images */
+        margin-right: 1%; /* Adjust the spacing between slides */
+        position: relative;
+        flex: none;
+    }
+    .carousel-slide img {
+        width: 100%;
+        border-radius: 10px; /* Optional: Adds rounded corners */
+        display: block;
+    }
+    .carousel-indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+    }
+    .carousel-indicator {
+        border: none;
+        background-color: #ccc;
+        width: 10px;
+        height: 12px;
+        border-radius: 50%;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+    .carousel-indicator.active {
+        background-color: #333;
+    } 
+    
+    
+    .footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        clear: both;
+   background-color: black;
+    color: white;
+    }
+
+    .hamburger {
+    display: none;
+    cursor: pointer;
+    color: grey; /* Adjust based on your header color */
+    font-size: 2rem;
+    user-select: none;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    padding-left: 20px;
+}
+
+nav ul li a {
+    color: grey; /* Default link color */
+    font-size: 1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: grey; /* Sample hover and active link color */
+}
+
+@media (max-width: 768px) {
+    h2{
+        font-size: 1.5rem !important;
+    }
+    
+    .hamburger {
+        display: block;
+       
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    nav ul li {
+        text-align: left;
+    }
+
+    nav ul li a {
+        display: block;
+        width: 100%;
+        padding: 10px 0; /* Adjust based on your design */
+    }
+
+    /* Additional responsive styling */
+    header {
+        flex-direction: column;
+    }
+}
+ 
+</style>
+</head>
+<body>
+
+    <header>
+        <h1>Keme Rex</h1>
+       
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+<nav>
+    <ul id="nav-menu">
+        <li><a href="portfolio.html">Home</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="https://www.linkedin.com/in/keme-rex-19929a179/">Connect</a></li>
+        <li><a href="about.html">About</a></li>
+    </ul>
+</nav>
+    </header>
+   
+    <section class="swishintro">
+        <h2>INTRODUCING SWISH</h2>
+    </section> 
+
+
+    <div class="container">
+    <div class="intro">
+        <img class="swish-logo" src="swishlogo.png" alt="Swish logo">
+        
+        <p>In the digital era, where technology meets personal finance, a groundbreaking app concept emerges – Swish. Designed to merge the joy of wishing with the discipline of saving, Swish offers a unique approach to financial management. At its core, Swish is more than just a savings tool; it’s a journey towards achieving personal dreams and desires. </p>
+   <p><a href="your-link.html" class="oval-button">Figma Prototype</a></p>
+    </div>
+    <div class="concept">
+        
+        <h1>The Concept</h1>
+        <p>Swish empowers users to transform their fleeting wishes into tangible goals. Imagine having a wishlist – or a "Swishlist" – where every desired item is not just a dream but a potential reality. Users can search for items, add them to their Swishlist, and begin a journey towards owning them. The beauty of swish lies in it's flexibility and user-centric design, allowing individuals to deposit money at their convenience into different items and track their progress through an intuitive tracker</p>
+    </div>
+</div>
+
+<div class="carousel-container">
+    <div class="carousel-track">
+        <div class="carousel-slide">
+            <img src="flow1.png" alt="Image 1">
+        </div>
+        <div class="carousel-slide">
+            <img src="flow2.png" alt="Image 2">
+        </div>
+        <div class="carousel-slide">
+            <img src="flow4.png" alt="Image 3">
+        </div>
+        <!-- Additional slides -->
+        <div class="carousel-slide">
+            <img src="flow6.png" alt="Image 3">
+        </div>
+        <div class="carousel-slide">
+            <img src="flow7.png" alt="Image 3">
+        </div>
+        <div class="carousel-slide">
+            <img src="flow8.png" alt="Image 3">
+        </div>
+        <div class="carousel-slide">
+            <img src="flow9.png" alt="Image 3">
+        </div>
+    </div>
+    <div class="carousel-indicators">
+        <!-- The indicators will be inserted here by JavaScript -->
+    </div>
+</div>
+
+
+<div class="container2">
+        <h2>Why Do I need Swish?</h2>
+    
+    <div class="intro">
+        <p>Integrating a user-friendly interface (UI) in Swish significantly enhances its potential to assist the average American in achieving their savings goals. A well-designed UI simplifies the process of setting and tracking savings objectives, making it more engaging and less daunting. Features such as easy navigation, clear visual representations of savings progress, and intuitive tools for adding and managing wishlist items can make the experience more enjoyable and less overwhelming. This approach can help demystify the process of saving, especially for those who may find traditional methods of financial planning complex or inaccessible. By providing a straightforward, visually appealing, and interactive platform, Swish not only promotes consistent saving habits but also makes the journey towards financial goals more attainable and less intimidating for the average user.</p>
+            <p>Different articles and studies highlight the positive impact of financial apps like Swish on users' financial capabilities. Swish will definitely increase users' confidence in managing future economic conditions by enhancing their financial skills. Users learn to set and track financial goals, thus developing a clearer understanding of financial planning and spending limits. While there's a potential risk of increased purchasing or debt, the overarching benefits include improved financial literacy, establishment of good financial habits, and promotion of savings. Swish acts as external source of financial information, encouraging better personal finance management. The overall trend is that Swish will significantly contribute to users' financial well-being and discipline</p> 
+    <p>Swish emerges as a pivotal solution in a context where the average American often finds saving for goals challenging. This difficulty in saving can come from a lack of structured saving mechanisms, not visually able to track your progress, immediate financial pressures, or simply not having a clear plan for achieving specific financial goals. Swish addresses these challenges by enabling users to search for, and customize specific items or goals to save for, creating a personalized and focused saving experience. By allowing users to visually track their progress towards these goals, Swish not only makes saving more tangible and goal-oriented but also provides a motivational boost. This targeted approach to saving is particularly beneficial in a financial landscape where generic savings strategies may fall short in addressing individual needs and aspirations</p>
+            <h3>Sources and Inspiration</h3>
+    <li>
+        How UI Design Enables User Productivity. (n.d.). Abas. Retrieved January 30, 2024, from <a href="https://abas-erp.com/en/resources/erp-blog/ui-design-enables-user-productivity">Article Link</a>
+        
+    </li>
+   <li>
+    Omorinsola, O. (2022, December 31). Save Sure (Savings And Investment App): A UI/UX Case Study. Medium. <a href="https://bootcamp.uxdesign.cc/save-sure-savings-and-investment-app-a-ui-ux-case-study-d92fecca79c4">Article Link</a>
+
+   </li>
+   <li>
+    Cash App square inc.
+   </li>
+   <li>
+    Apple Wallet
+   </li>
+
+</div>
+   
+</div>
+
+  
+   
+
+<script>
+    function toggleMenu() {
+            var menu = document.getElementById("nav-menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+    
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const track = document.querySelector('.carousel-track');
+    const indicatorsContainer = document.querySelector('.carousel-indicators');
+
+    // Create indicators
+    slides.forEach((slide, i) => {
+        const indicator = document.createElement('button');
+        indicator.classList.add('carousel-indicator');
+        indicator.addEventListener('click', () => {
+            moveToSlide(i);
+        });
+        indicatorsContainer.appendChild(indicator);
+    });
+
+    function updateIndicators(newIndex) {
+        document.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === newIndex);
+        });
+    }
+
+    function moveToSlide(index) {
+        const slideWidth = slides[index].getBoundingClientRect().width;
+        const newTranslateX = slideWidth * index * -1;
+        track.style.transform = `translateX(${newTranslateX}px)`;
+        currentIndex = index;
+        updateIndicators(currentIndex);
+    }
+
+    // Set initial active indicator
+    updateIndicators(0);
+</script>
+
+<div class="footer">
+    © 2024 Keme Rex. All rights reserved.
+</div>
+
+</body>
+</html>
