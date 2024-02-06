@@ -402,43 +402,114 @@ nav ul li a.active {
    
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
 
+function toggleMenu() {
+            var menu = document.getElementById("nav-menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+    
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const track = document.querySelector('.carousel-track');
+    const indicatorsContainer = document.querySelector('.carousel-indicators');
+
+    // Create indicators
+    slides.forEach((slide, i) => {
+        const indicator = document.createElement('button');
+        indicator.classList.add('carousel-indicator');
+        indicator.addEventListener('click', () => {
+            moveToSlide(i);
+        });
+        indicatorsContainer.appendChild(indicator);
+    });
+
+    function updateIndicators(newIndex) {
+        document.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === newIndex);
+        });
+    }
+
+    function moveToSlide(index) {
+        const slideWidth = slides[index].getBoundingClientRect().width;
+        const newTranslateX = slideWidth * index * -1;
+        track.style.transform = `translateX(${newTranslateX}px)`;
+        currentIndex = index;
+        updateIndicators(currentIndex);
+    }
+
+
+
+
+
+
+    
+    // Set initial active indicator
+    updateIndicators(0);
+let currentIndex = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const track = document.querySelector('.carousel-track');
+    const indicatorsContainer = document.querySelector('.carousel-indicators');
+
+    // Dynamically create indicators
+    slides.forEach((slide, i) => {
+        const indicator = document.createElement('button');
+        indicator.classList.add('carousel-indicator');
+        indicator.addEventListener('click', () => {
+            moveToSlide(i);
+        });
+        indicatorsContainer.appendChild(indicator);
+    });
+
+    function updateIndicators(newIndex) {
+        document.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === newIndex);
+        });
+    }
+
+    function moveToSlide(index) {
+        if (index >= slides.length) index = 0; // Loop to the first slide
+        if (index < 0) index = slides.length - 1; // Loop to the last slide
+
+        const slideWidth = slides[index].getBoundingClientRect().width;
+        const newTranslateX = slideWidth * index * -1;
+        track.style.transform = `translateX(${newTranslateX}px)`;
+        currentIndex = index;
+        updateIndicators(currentIndex);
+    }
+
+    // Set the initial active indicator
+    updateIndicators(0);
 
     // Swipe functionality
     let startX;
-    let currentX;
     let moved = false;
 
-    const handleTouchStart = e => {
+    track.addEventListener('touchstart', (e) => {
         startX = e.touches[0].pageX;
         moved = false;
-    };
+    }, { passive: true });
 
-    const handleTouchMove = e => {
-        if (e.touches.length > 1) return; // Only handle single finger swipes
-        currentX = e.touches[0].pageX;
+    track.addEventListener('touchmove', (e) => {
+        if (!startX || e.touches.length > 1) return; // Ignore if multi-touch
         moved = true;
-    };
+    }, { passive: true });
 
-    const handleTouchEnd = () => {
+    track.addEventListener('touchend', (e) => {
         if (!moved) return;
-        const moveLength = currentX - startX;
-        if (moveLength > 50) {
-            // Swipe right, move to previous slide
-            moveToSlide(currentIndex - 1);
-        } else if (moveLength < -50) {
-            // Swipe left, move to next slide
+        const endX = e.changedTouches[0].pageX;
+        const moveLength = startX - endX;
+        if (moveLength > 50) { // Swipe left
             moveToSlide(currentIndex + 1);
+        } else if (moveLength < -50) { // Swipe right
+            moveToSlide(currentIndex - 1);
         }
-    };
-
-    if (track) {
-        track.addEventListener('touchstart', handleTouchStart, { passive: true });
-        track.addEventListener('touchmove', handleTouchMove, { passive: true });
-        track.addEventListener('touchend', handleTouchEnd);
-    }
+    });
 });
-
    
 
 
