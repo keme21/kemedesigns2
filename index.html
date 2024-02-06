@@ -401,105 +401,68 @@ nav ul li a.active {
   
    
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentIndex = 0;
+            const slides = document.querySelectorAll('.carousel-slide');
+            const track = document.querySelector('.carousel-track');
+            const indicatorsContainer = document.querySelector('.carousel-indicators');
 
+            slides.forEach((slide, i) => {
+                const indicator = document.createElement('button');
+                indicator.classList.add('carousel-indicator');
+                indicator.addEventListener('click', () => {
+                    moveToSlide(i);
+                });
+                indicatorsContainer.appendChild(indicator);
+            });
 
+            function updateIndicators(newIndex) {
+                document.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
+                    indicator.classList.toggle('active', i === newIndex);
+                });
+            }
 
-    
-    // Set initial active indicator
-    updateIndicators(0);
-let currentIndex = 0;
-    const slides = document.querySelectorAll('.carousel-slide');
-    const track = document.querySelector('.carousel-track');
-    const indicatorsContainer = document.querySelector('.carousel-indicators');
+            function moveToSlide(index) {
+                if (index >= slides.length) index = 0; 
+                if (index < 0) index = slides.length - 1; 
 
-    // Dynamically create indicators
-    slides.forEach((slide, i) => {
-        const indicator = document.createElement('button');
-        indicator.classList.add('carousel-indicator');
-        indicator.addEventListener('click', () => {
-            moveToSlide(i);
+                const slideWidth = slides[index].getBoundingClientRect().width;
+                const newTranslateX = slideWidth * index * -1;
+                track.style.transform = `translateX(${newTranslateX}px)`;
+                currentIndex = index;
+                updateIndicators(currentIndex);
+            }
+
+            updateIndicators(0);
+
+            let startX;
+            let moved = false;
+
+            track.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX;
+                moved = false;
+            }, { passive: true });
+
+            track.addEventListener('touchmove', (e) => {
+                if (!startX || e.touches.length > 1) return;
+                moved = true;
+            }, { passive: true });
+
+            track.addEventListener('touchend', (e) => {
+                if (!moved) return;
+                const endX = e.changedTouches[0].pageX;
+                const moveLength = startX - endX;
+                if (moveLength > 50) {
+                    moveToSlide(currentIndex + 1);
+                } else if (moveLength < -50) {
+                    moveToSlide(currentIndex - 1);
+                }
+            });
         });
-        indicatorsContainer.appendChild(indicator);
-    });
+    </script>
 
-    function updateIndicators(newIndex) {
-        document.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
-            indicator.classList.toggle('active', i === newIndex);
-        });
-    }
-
-    function moveToSlide(index) {
-        if (index >= slides.length) index = 0; // Loop to the first slide
-        if (index < 0) index = slides.length - 1; // Loop to the last slide
-
-        const slideWidth = slides[index].getBoundingClientRect().width;
-        const newTranslateX = slideWidth * index * -1;
-        track.style.transform = `translateX(${newTranslateX}px)`;
-        currentIndex = index;
-        updateIndicators(currentIndex);
-    }
-
-   // Set the initial active indicator
-    updateIndicators(0);
-
-   
-    
-    
-    
-    
-    
-    track.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].pageX;
-    moved = false;
-}, { passive: true });
-
-track.addEventListener('touchmove', (e) => {
-    if (!startX || e.touches.length > 1) return;
-    moved = true;
-}, { passive: true });
-
-track.addEventListener('touchend', (e) => {
-    if (!moved) return;
-    const endX = e.changedTouches[0].pageX;
-    const moveLength = startX - endX;
-    if (moveLength > 50) {
-        moveToSlide(currentIndex + 1);
-    } else if (moveLength < -50) {
-        moveToSlide(currentIndex - 1);
-    }
-});
-
-    
-    
-    // Swipe functionality
-    let startX;
-    let moved = false;
-
-    track.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].pageX;
-        moved = false;
-    }, { passive: true });
-
-    track.addEventListener('touchmove', (e) => {
-        if (!startX || e.touches.length > 1) return; // Ignore if multi-touch
-        moved = true;
-    }, { passive: true });
-
-    track.addEventListener('touchend', (e) => {
-        if (!moved) return;
-        const endX = e.changedTouches[0].pageX;
-        const moveLength = startX - endX;
-        if (moveLength > 50) { // Swipe left
-            moveToSlide(currentIndex + 1);
-        } else if (moveLength < -50) { // Swipe right
-            moveToSlide(currentIndex - 1);
-        }
-    });
-});
-   
 
 
 </script>
