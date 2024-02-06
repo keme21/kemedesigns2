@@ -402,7 +402,7 @@ nav ul li a.active {
    
 
 <script>
-
+document.addEventListener('DOMContentLoaded', (event) => {
     function toggleMenu() {
             var menu = document.getElementById("nav-menu");
             if (menu.style.display === "block") {
@@ -450,7 +450,7 @@ nav ul li a.active {
 
     
 
-    document.addEventListener('DOMContentLoaded', (event) => {
+    
     let startX;
     let moveLength;
     const threshold = 100; // Minimum distance of swipe to trigger slide move
