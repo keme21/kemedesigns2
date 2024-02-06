@@ -402,6 +402,46 @@ nav ul li a.active {
    
 
 <script>
+ let touchStartX = 0;
+let touchEndX = 0;
+
+function checkSwipeDirection() {
+    if (touchEndX < touchStartX) moveToSlide(currentIndex + 1);
+    if (touchEndX > touchStartX) moveToSlide(currentIndex - 1);
+}
+
+track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+track.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    checkSwipeDirection();
+});
+
+function moveToSlide(index) {
+    if (index >= slides.length) index = 0; // Go to the first slide if swiping right on the last slide
+    if (index < 0) index = slides.length - 1; // Go to the last slide if swiping left on the first slide
+
+    const slideWidth = slides[index].getBoundingClientRect().width;
+    const newTranslateX = slideWidth * index * -1;
+    track.style.transform = `translateX(${newTranslateX}px)`;
+    currentIndex = index;
+    updateIndicators(currentIndex);
+}
+   
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
     function toggleMenu() {
             var menu = document.getElementById("nav-menu");
             if (menu.style.display === "block") {
